@@ -1,0 +1,14 @@
+{% extends 'base/base.html' %}
+{% load bootstrap %} 
+{% load static %} 
+
+{% block title %}
+    Сброс пароля
+{% endblock title %}
+
+{% block content %}
+    <h2>Вы хотите сбросить пароль?</h2>
+    <p><a href="{% url 'main:login' %}">Войти</a></p>
+{% endblock content %}
+    
+    

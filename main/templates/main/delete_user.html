@@ -1,0 +1,16 @@
+{% extends 'base/base.html' %}
+{% load bootstrap4 %} 
+{% load static %}
+
+{% block title %}
+    Удаление профиля
+{% endblock title %}
+
+{% block content %}
+    <h2>Удаление профиля {{ object.username }}</h2>
+    <form action="" method="POST">
+        {% csrf_token %} 
+        {% buttons submit='Удалить' %} {% endbuttons %} 
+    </form>
+{% endblock content %}
+    

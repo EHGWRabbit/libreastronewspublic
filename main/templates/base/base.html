@@ -1,0 +1,113 @@
+{% load bootstrap4 %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>
+    {% block title %}
+        Главная страница
+    {% endblock title %}
+    Новости астрономии
+        </title>
+    {% bootstrap_css %} 
+    <link rel="stylesheet" href="{% static 'main/style.css' %}">
+    {% bootstrap_javascript jquery='slim' %} 
+</head>
+<body class="container-fluid">
+    <header class="mb-4">
+        <h2 class="display-1 text-center">Новости Астрономии</h2>
+    </header>
+    <div class="row">
+        <ul class="col navbar-nav border">
+            <lariai class="nav-item">
+                <a href="{% url 'main:register' %}" class="nav-link">Регистрация</a>
+            </li>
+            {% if user.is_authenticated %} 
+            <li class="nav-item dropdown">
+                <a href="#" class="nav-link dropdpwn-toggle"
+                data-toggle="dropdown" role="button" 
+                aria-haspopup="true" -expanded="false">Профиль</a>
+                <div class="dropdown-menu">
+                    <a href="{% url 'main:profile' %}" class="dropdown-item">Мои новости</a>
+                    <a href="{% url 'main:profile_change' %}" class="dropdown-item">Изменить личные данные</a>
+                    <a href="{% url 'main:password_change' %}" class="dropdown-item">Изменить пароль</a>
+                    <div class="dropdown-divider"></div>
+                    <a href="{% url 'main:logout' %}" class="dropdown-item">Выйти</a>
+                    <div class="dropdown-divider"></div>
+                    <a href="{% url 'main:profile_delete' %}" class="dropdown-item">Удалить</a>
+                </div>
+            </li>
+            {% else %} 
+            <li class="nav-item">
+                <a href="{% url 'main:login' %}" class="nav-link">Вход</a>
+            </li>
+            {% endif %} 
+            <li class="nav-item">
+                <a href="{% url 'main:other' page='about' %}" class="nav-link">О сайте</a>
+            </li>
+        </ul>
+    </div>
+    <div class="row">
+        <nav class="col-md-auto nav flex-column border">
+            <a href="{% url 'main:index' %}" class="nav-link root">Главная</a>
+            <span class="nav-link root font-weight-bold">Солнечная система</span>
+            <a href="#" class="nav-link">Меркурий</a>
+            <a href="#" class="nav-link">Венера</a>
+            <a href="#" class="nav-link">Земля</a>
+            <a href="#" class="nav-link">Марс</a>
+            <a href="#" class="nav-link">Юпитер</a>
+            <a href="#" class="nav-link">Сатурн</a>
+            <a href="#" class="nav-link">Уран</a>
+            <a href="#" class="nav-link">Нептун</a>
+            <a href="#" class="nav-link">Плутон и малые планеты</a>
+            <a href="#" class="nav-link">Астероиды и кометы</a>
+
+
+            <span class="nav-link root font-weight-bold">Галактика</span>
+            <a href="#" class="nav-link">Млечный путь</a>
+            <a href="#" class="nav-link">Шаровые скопления</a>
+            <a href="#" class="nav-link">Рассеяные скопления</a>
+            <a href="#" class="nav-link">Туманности</a>
+            
+            <span class="nav-link root font-weight-bold">Вселенная</span>
+            <a href="#" class="nav-link">Галактики</a>
+            <a href="#" class="nav-link">Квазары</a>
+            <a href="#" class="nav-link">Сверхмассивные черные дыры</a>
+            <a href="#" class="nav-link">Расширение Вселенной</a>
+            
+            <span class="nav-link root font-weight-bold">Звезды</span>
+            <a href="#" class="nav-link">Солнце</a>
+            <a href="#" class="nav-link">Сверхновые и новые звезды</a>
+            <a href="#" class="nav-link">Черные и белые дыры</a>
+            <a href="#" class="nav-link">Пульсары и магнетары</a>
+            <a href="#" class="nav-link">Звезды карлики</a>
+            <a href="#" class="nav-link">Экзопланеты и экзолуны</a>
+            
+            <span class="nav-link root font-weight-bold">Астротехника</span>
+            <a href="#" class="nav-link">Телескопы и обсерватории</a>
+            <a href="#" class="nav-link">Космические роботы</a>
+           
+            <span class="nav-link root font-weight-bold">Загадки Вселенной</span>
+            <a href="#" class="nav-link">Загадки Солнечной системы</a>
+            <a href="#" class="nav-link">Загадки других звезд и туманностей</a>
+            <a href="#" class="nav-link">Загадки Млечного пути</a>
+            <a href="#" class="nav-link">Загадки галактик и квазаров</a>
+            <a href="#" class="nav-link">Загадки Вселенной</a>
+            <a href="#" class="nav-link">Жизнь и разум</a>
+        </nav>
+        <section class="col border py-2">
+            {% bootstrap_messages %}
+            {% block content %}
+                
+            {% endblock content %}
+                
+        </section>
+    </div>
+    <footer class="mt-3">
+        <p class="text-right font-italic">&copy; читатели</p>
+    </footer>
+</body>
+</html>

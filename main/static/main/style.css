@@ -1,0 +1,11 @@
+body{
+    background-color: black;
+    color: gold;
+}
+header{
+    background: url("astr.jpg") left / auto 350% no-repeat, url("astr.jpg") right / auto 350% no-repeat;
+}
+
+.root{
+    font-size: larger;
+}
