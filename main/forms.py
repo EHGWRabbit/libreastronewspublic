@@ -5,6 +5,9 @@ from django.core.exceptions import ValidationError
 from .apps import user_registered
 from .models import SuperRubric 
 from .models import SubRubric 
+from django.contrib.auth.decorators import login_required
+
+
 #класс для ввода данных пользователя 
 class ChangeUserInfoForm(forms.ModelForm):
     email = forms.EmailField(required=True, label='Адрес электронной почты')
@@ -55,6 +58,7 @@ class RegisterUserForm(forms.ModelForm):
 
 
 #создаем поле надрубрики
+#@login_required
 class SubRubricForm(forms.ModelForm):
     super_rubric = forms.ModelChoiceField(queryset=SuperRubric.objects.all(), 
                                             empty_label=None,
@@ -67,6 +71,7 @@ class SubRubricForm(forms.ModelForm):
 
 
 #форма поиска на сайте
+#@login_required
 class SearchForm(forms.Form):
     keyword = forms.CharField(required=False, max_length=20, label='')
 

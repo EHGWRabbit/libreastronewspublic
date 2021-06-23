@@ -1,5 +1,7 @@
-{% load bootstrap4 %}
+
+{% load thumbnail %} 
 {% load static %}
+{% load bootstrap4 %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,8 +13,8 @@
         Главная страница
     {% endblock title %}
     Новости астрономии
-        </title>
-    {% bootstrap_css %} 
+        </title> 
+        {% bootstrap_css %}   
     <link rel="stylesheet" href="{% static 'main/style.css' %}">
     {% bootstrap_javascript jquery='slim' %} 
 </head>
@@ -112,7 +114,7 @@
         <section class="col border py-2">
             {% bootstrap_messages %}
             {% block content %}
-                
+             
             {% endblock content %}
                 
         </section>
