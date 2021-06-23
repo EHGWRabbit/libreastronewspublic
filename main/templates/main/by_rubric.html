@@ -1,0 +1,50 @@
+{% extends 'base/base.html' %} 
+{% load thumbnail %} 
+{% load static %}
+{% load bootstrap4 %}
+
+{% block title %}
+    {{ rubric }}
+{% endblock title %}
+
+{% block content %}
+    <h3 class="mb-2">{{ rubric }}</h3>
+    <div class="container-fluid mb-2">
+        <div class="row">
+            <div class="col">&nbsp;</div>
+            <form action="" class="col-md-auto form-inline">
+                {% bootstrap_form form show_label=False %} 
+                {% bootstrap_button content='Искать' button_type='submit' %} 
+            </form>
+        </div>
+    </div>
+    {% if bbs %} 
+        <ul class="list-unstyled">
+            {% for bb in bbs %} 
+            <li class="media my-5 p-3 border">
+                {% url 'main:detail' rubric_pk=rubric.pk pk=bb.pk as url %} 
+                <a href="{{ url }} {{ all }}">
+                    {% if bb.image %} 
+                        <figure><img src="{% thumbnail bb.image 'default' %}" alt="b" class="mr-3">
+                            <figcaption></figcaption>
+                        </figure>
+                    {% else %} 
+                        <img src="{% static 'main/empty.jpg' %}" alt="a" class="mr-3">
+                    {% endif %} 
+                </a>
+                <div class="media-body">
+                    <h3><a href="{{ url }} {{ all }}">
+                        {{ bb.title }}
+                    </a></h3>
+                    <div>{{ bb.content }}</div>
+                    <p class="text-right forn-weight-bold">Источник {{ bb.source }}</p>
+                    <p class="text-right font-italic">{{ bb.created_at }}</p>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    {% bootstrap_pagination page url=keyword %}  
+    {% endif %}  
+{% endblock content %}
+    
+    

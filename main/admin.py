@@ -2,6 +2,12 @@ from django.contrib import admin
 import datetime
 from .models import AstroUser
 from .utilities import send_activation_note
+from .models import SuperRubric
+from .models import SubRubric 
+from .forms import SubRubricForm 
+from .models import Bb
+from .models import AdditionalImage
+
 
 def send_activation_notes(modeladmin, request, queryset):
     for rec in queryset:
@@ -43,4 +49,31 @@ class AstroUserAdmin(admin.ModelAdmin):
     actions = (send_activation_notes,)
 
 
+#класс редактора для редактирования подрубрик 
+class SubRubricInline(admin.TabularInline):
+    model = SubRubric 
+
+#привязка к суперпользователбской модели
+class SuperRubricAdmin(admin.ModelAdmin):
+    exclude = ('super_rubric',)
+    inlines = (SubRubricInline,)
+
+#редактор подрубрик
+class SubRubricAdmin(admin.ModelAdmin):
+    form = SubRubricForm 
+
+
+#код редактора новостей
+class AdditionalImageInline(admin.TabularInline):
+    model = AdditionalImage
+
+class BbAdmin(admin.ModelAdmin):
+    list_display = ('rubric', 'title', 'content', 'author', 'created_at')
+    fields = (('rubric', 'author'), 'title', 'content', 'source', 'contacts', 'image', 'is_active')
+    inlines = (AdditionalImageInline,) 
+
+
+admin.site.register(Bb, BbAdmin)
+admin.site.register(SubRubric, SubRubricAdmin)
+admin.site.register(SuperRubric, SuperRubricAdmin)
 admin.site.register(AstroUser, AstroUserAdmin)

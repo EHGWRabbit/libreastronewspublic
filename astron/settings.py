@@ -41,7 +41,13 @@ INSTALLED_APPS = [
     #local
     'main.apps.MainConfig',
     #downloaded
+    #css framework
     'bootstrap4',
+    #remove downloaded files after remove models
+    'django_cleanup',
+    #supports grafics and miniatures
+    'easy_thumbnails',
+    
 ]
 
 MIDDLEWARE = [
@@ -67,6 +73,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                #add context dispatcher
+                'main.middlewares.astron_context_processor',
             ],
         },
     },
@@ -130,10 +138,30 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-#модель пользователя используемая для разграничения
+#model for permissions django
 AUTH_USER_MODEL = 'main.AstroUser'
 
 
-#почтовый модуль
+#mail modul
 EMAIL_PORT = 1025
+
+#outload files
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+#base url for media
+MEDIA_URL = '/media/'
+
+#aliases for thumbnails
+THUMBNAIL_ALIASES = {
+    '': {
+        'default': {
+            'size':(96, 96),
+            'crop': 'scale',
+        },
+    },
+}
+
+
+THUMBNAIL_BASEDIR = 'thumbnails'
+
 

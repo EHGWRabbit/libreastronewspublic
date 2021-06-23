@@ -1,0 +1,2 @@
+asstr == bbs
+bb = astrImg

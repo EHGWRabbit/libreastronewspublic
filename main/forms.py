@@ -3,7 +3,8 @@ from .models import AstroUser
 from django.contrib.auth import password_validation 
 from django.core.exceptions import ValidationError
 from .apps import user_registered
-
+from .models import SuperRubric 
+from .models import SubRubric 
 #класс для ввода данных пользователя 
 class ChangeUserInfoForm(forms.ModelForm):
     email = forms.EmailField(required=True, label='Адрес электронной почты')
@@ -52,4 +53,20 @@ class RegisterUserForm(forms.ModelForm):
         fields = ('username', 'email', 'password_one', 'password_two', 'first_name', 'last_name',
                 'send_messages')
 
+
+#создаем поле надрубрики
+class SubRubricForm(forms.ModelForm):
+    super_rubric = forms.ModelChoiceField(queryset=SuperRubric.objects.all(), 
+                                            empty_label=None,
+                                            label='Надрубрика',
+                                            required=True)
+    
+    class Meta:
+        model = SubRubric
+        fields = '__all__'
+
+
+#форма поиска на сайте
+class SearchForm(forms.Form):
+    keyword = forms.CharField(required=False, max_length=20, label='')
 

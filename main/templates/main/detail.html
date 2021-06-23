@@ -1,0 +1,47 @@
+{% extends 'base/base.html' %} 
+{% load bootstrap4 %} 
+{% load static %}
+{% load thumbnail %} 
+
+{% block title %}
+    {{ bb.title }} - {{ bb.rubric.name }}
+{% endblock title %}
+
+{% block content %}
+    <div class="container-fluid mt-3">
+        <!--<div class="row">-->
+            <div class="col">
+                <h3>{{ bb.title }}</h3>
+                <p>{{ bb.content }}</p>
+                <p class="font-weight-bold">{{ bb.source }}</p>
+                <!--<p>{{ bb.contacts }}</p>-->
+                <p class="text-right forn-italic">Новость добавлена {{ bb.created_at }}</p>
+            </div>
+            {% if bb.image %} 
+            <div class="col">
+                <img src="{{ bb.image.url }}" alt="a" class="rounded float-right">
+            {% endif %} 
+            <!--<div class="col">
+                <h3>{{ bb.title }}</h3>
+                <p>{{ bb.content }}</p>
+                <p class="font-weight-bold">{{ bb.source }}</p>
+                <p>{{ bb.contacts }}</p>
+                <p class="text-right forn-italic">Новость добавлена {{ bb.created_at }}</p>
+            </div>-->
+        </div>
+    </div>
+    {% if ais %} 
+    <div class="d-flex justify-content-between flex-wrap mt-5">
+        {% for ai in ais %} 
+        <div>
+            <img src="{{ ai.image.url }}" alt="b" class="additional-image">
+        </div>
+        {% endfor %} 
+    </div>
+    {% endif %} 
+    <p>
+        <a href="{% url 'main:by_rubric' pk=bb.rubric.pk %} {{ all }}">Назад</a>
+    </p>
+{% endblock content %}
+    
+    

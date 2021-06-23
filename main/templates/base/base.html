@@ -18,7 +18,7 @@
 </head>
 <body class="container-fluid">
     <header class="mb-4">
-        <h2 class="display-1 text-center">Новости Астрономии</h2>
+        <h2 class="display-3 text-center">Новости Астрономии</h2>
     </header>
     <div class="row">
         <ul class="col navbar-nav border">
@@ -45,15 +45,26 @@
                 <a href="{% url 'main:login' %}" class="nav-link">Вход</a>
             </li>
             {% endif %} 
-            <li class="nav-item">
+            <!--<li class="nav-item">
                 <a href="{% url 'main:other' page='about' %}" class="nav-link">О сайте</a>
-            </li>
+            </li>-->
         </ul>
     </div>
     <div class="row">
         <nav class="col-md-auto nav flex-column border">
             <a href="{% url 'main:index' %}" class="nav-link root">Главная</a>
-            <span class="nav-link root font-weight-bold">Солнечная система</span>
+            {% for rubric in rubrics %} 
+                {% ifchanged rubric.super_rubric.pk %} 
+                    <span class="nav-link root font-weight-bold">
+                        {{ rubric.super_rubric.name }}
+                    </span>
+                {% endifchanged %} 
+                <a href="{% url 'main:by_rubric' pk=rubric.pk %}" class="nav-link">
+                    {{ rubric.name }}
+                </a>
+            {% endfor %} 
+            <a href="{% url 'main:other' page='about' %}" class="nav-link">О сайте</a>
+            <!--<span class="nav-link root font-weight-bold">Солнечная система</span>
             <a href="#" class="nav-link">Меркурий</a>
             <a href="#" class="nav-link">Венера</a>
             <a href="#" class="nav-link">Земля</a>
@@ -96,7 +107,7 @@
             <a href="#" class="nav-link">Загадки Млечного пути</a>
             <a href="#" class="nav-link">Загадки галактик и квазаров</a>
             <a href="#" class="nav-link">Загадки Вселенной</a>
-            <a href="#" class="nav-link">Жизнь и разум</a>
+            <a href="#" class="nav-link">Жизнь и разум</a>-->
         </nav>
         <section class="col border py-2">
             {% bootstrap_messages %}

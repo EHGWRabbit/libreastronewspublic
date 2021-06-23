@@ -14,6 +14,14 @@ from .views import DeleteUserView#удаление профиля
 #from .views import ResetPasswordConfirmView#дтверждение сброса
 #from .views import ResetPasswordCompleteView
 #from .views import ResetPasswordDoneView
+from .views import detail#детали новости
+from .views import by_rubric#контроллер для рубрик
+from django.conf.urls.static import static 
+from astron import settings
+
+
+
+
 
 app_name = 'main'
 
@@ -30,6 +38,10 @@ urlpatterns = [
     #path('accounts/password/reset/', ResetPasswordView.as_view(), name='reset'),
     #path('accounts/password/reset/confirm/', ResetPasswordConfirmView.as_view(), name='reset_confirm'),
     #path('accounts/password/reset/done/', ResetPasswordDoneView.as_view(), name='reset_done'),
+    path('<int:rubric_pk>/<int:pk>/', detail, name='detail'),
+    path('<int:pk>/', by_rubric, name='by_rubric'),
     path('<str:page>/', other_page, name='other'),
     path('', index, name='index'),
 ]
+
+

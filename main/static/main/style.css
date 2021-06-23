@@ -9,3 +9,16 @@ header{
 .root{
     font-size: larger;
 }
+img{
+    width: 230px;
+    height: 220px;
+}
+/*figure{
+    display: inline-block;
+    background: white;
+    padding: 6px;
+    vertical-align: top;
+}
+figcaption{
+    text-align: center;
+}*/
