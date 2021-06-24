@@ -156,7 +156,7 @@ AUTH_USER_MODEL = 'main.AstroUser'
 
 
 #mail modul
-EMAIL_PORT = 1025
+#EMAIL_PORT = 1025
 
 #outload files
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -181,6 +181,14 @@ THUMBNAIL_BASEDIR = 'thumbnails'
 CORS_ORIGIN_ALLOW_ALL = True 
 CORS_URLS_REGEX = r'^/api/.*$'
 
+
+
+#email
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'ehgwrabbit@gmail.com' 
+EMAIL_HOST_PASSWORD = '$6120$x326y457z628a45b$'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True 
 
 
 
