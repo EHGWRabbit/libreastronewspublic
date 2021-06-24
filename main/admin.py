@@ -7,6 +7,8 @@ from .models import SubRubric
 from .forms import SubRubricForm 
 from .models import Bb
 from .models import AdditionalImage
+from .models import Comment
+
 
 
 def send_activation_notes(modeladmin, request, queryset):
@@ -69,10 +71,13 @@ class AdditionalImageInline(admin.TabularInline):
 
 class BbAdmin(admin.ModelAdmin):
     list_display = ('rubric', 'title', 'content', 'author', 'created_at')
-    fields = (('rubric', 'author'), 'title', 'content', 'source', 'contacts', 'image', 'is_active')
+    fields = (('rubric', 'author'), 'title', 'content', 'source', 'contacts', 'image', 'is_active',)
     inlines = (AdditionalImageInline,) 
 
+class CommentAdmin(admin.ModelAdmin):
+    model = Comment
 
+admin.site.register(Comment, CommentAdmin)
 admin.site.register(Bb, BbAdmin)
 admin.site.register(SubRubric, SubRubricAdmin)
 admin.site.register(SuperRubric, SuperRubricAdmin)

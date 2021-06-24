@@ -21,6 +21,8 @@ from django.views.decorators.cache import never_cache
 from django.conf.urls.static import static 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('captcha/', include('captcha.urls')),
+    path('api/', include('api.urls')),
     path('', include('main.urls')),
 ]
 

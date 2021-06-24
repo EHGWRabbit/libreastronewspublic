@@ -18,8 +18,10 @@ from .views import detail#детали новости
 from .views import by_rubric#контроллер для рубрик
 from django.conf.urls.static import static 
 from astron import settings
-
-
+from .views import profile_bb_detail#нконтроллер данных о новостях, загруженных пользователем
+from .views import profile_bb_add#контроллер добавления новости
+from .views import profile_bb_change#контроллер изменения новости
+from .views import profile_bb_delete#контроллер удаления новости
 
 
 
@@ -33,6 +35,10 @@ urlpatterns = [
     path('accounts/password/change/', AstroPasswordChangeView.as_view(), name='password_change'),
     path('accounts/profile/delete/', DeleteUserView.as_view(), name='profile_delete'),
     path('accounts/profile/change/', ChangeUserInfoView.as_view(), name='profile_change'),
+    path('accounts/profile/change/<int:pk>/', profile_bb_change, name='profile_bb_change'),
+    path('accounts/profile/delete/<int:pk>/', profile_bb_delete, name='profile_bb_delete'),
+    path('accounts/profile/add/', profile_bb_add, name='profile_bb_add'),
+    path('accounts/profile/<int:pk>/', profile_bb_detail, name='profile_bb_detail'),
     path('accounts/profile/', profile, name='profile'),
     path('accounts/login/', AstroLoginView.as_view(), name='login'),
     #path('accounts/password/reset/', ResetPasswordView.as_view(), name='reset'),

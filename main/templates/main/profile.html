@@ -1,4 +1,5 @@
 {% extends 'base/base.html' %}
+{% load thumbnail %}
 {% load bootstrap4 %}
 {% load static %}
 
@@ -14,7 +15,38 @@
     {% else %} 
     <p>Доброго времени суток!</p>
     {% endif %} 
-    <h3>Ваши новости</h3>
+    <p><h4><a href="{% url 'main:profile_bb_add' %}">Добавить новость--></a></h4></p>
+    <h3 class="mb-2">{{ rubric }}</h3>
+    <div class="container-fluid mb-2">
+    </div>
+    {% if bbs %} 
+        <ul class="list-unstyled">
+            {% for bb in bbs %} 
+            <li class="media my-5 p-3 border">
+                {% url 'main:detail' rubric_pk=rubric.pk pk=bb.pk as url %} 
+                <a href="{{ url }} {{ all }}">
+                    {% if bb.image %} 
+                        <img src="{% thumbnail bb.image 'default' %}" alt="b" class="mr-3">
+                            
+                    {% else %} 
+                        <img src="{% static 'main/empty.jpg' %}" alt="a" class="mr-3">
+                    {% endif %} 
+                </a>
+                <div class="media-body">
+                    <h3><a href="{{ url }} {{ all }}">
+                        {{ bb.title }}
+                    </a></h3>
+                    <div>{{ bb.content }}</div>
+                    <p class="text-right forn-weight-bold">Источник {{ bb.source }}</p>
+                    <p class="text-right font-italic">{{ bb.created_at }}</p>
+                </div>
+            </li>
+            <p><h6><a href="{% url 'main:profile_bb_change' pk=bb.pk %}">Изменить новость--></a></h6></p>
+            <p><h6><a href="{% url 'main:profile_bb_delete' pk=bb.pk %}">Удалить новость--></a></h6></p>
+            <h3>Ваши новости</h3>
+            {% endfor %}
+        </ul>
+    {% endif %}  
 {% endblock content %}
     
     

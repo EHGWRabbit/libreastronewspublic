@@ -6,8 +6,11 @@ from .apps import user_registered
 from .models import SuperRubric 
 from .models import SubRubric 
 from django.contrib.auth.decorators import login_required
-
-
+from django.forms import inlineformset_factory
+from .models import Bb 
+from .models import AdditionalImage 
+from captcha.fields import CaptchaField 
+from .models import Comment 
 #класс для ввода данных пользователя 
 class ChangeUserInfoForm(forms.ModelForm):
     email = forms.EmailField(required=True, label='Адрес электронной почты')
@@ -75,3 +78,28 @@ class SubRubricForm(forms.ModelForm):
 class SearchForm(forms.Form):
     keyword = forms.CharField(required=False, max_length=20, label='')
 
+#форма ввода новости
+#форма ввода дополнительных иллюстраций
+class BbForm(forms.ModelForm):
+    class Meta:
+        model = Bb 
+        fields = '__all__' 
+        widgets = {'author': forms.HiddenInput}
+
+AIFormSet = inlineformset_factory(Bb, AdditionalImage, fields='__all__')
+
+
+#форма комментариев для зарегистрированного пользователя
+class UserCommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment 
+        exclude = ('is_active',)
+        widgets = {'bb': forms.HiddenInput}
+
+#форма для комментариев для гостей сайта
+class GuestCommentForm(forms.ModelForm):
+    captcha = CaptchaField(label='Введите текст с картинки', error_messages={'invalid': 'Неправильный текст'})
+    class Meta:
+        model = Comment
+        exclude = ('is_active',)
+        widgets = {'bb': forms.HiddenInput}

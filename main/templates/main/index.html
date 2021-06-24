@@ -10,12 +10,16 @@
 {% block content %}
     <h3 class="mb-2">Последние новости</h3>
     <div class="container-fluid mb-2">
+        <form action="" class="col-md-auto form-inline">
+            <input type="text">
+            <button type="submit">Искать</button> 
+        </form>
     {% if bbs %} 
         <ul class="list-unstyled">
             {% for bb in bbs %} 
             <li class="media my-5 p-3 border">
                 <div class="media-body">
-                    <h3><a href="{{ url }} {{ all }}">
+                    <h3><a href="{% url 'main:detail' rubric_pk=rubric.pk pk=bb.pk as url %}">
                         {{ bb.title }}
                     </a></h3>
                     <div>{{ bb.content }}</div>

@@ -29,6 +29,13 @@ from django.core.paginator import Paginator
 from django.db.models import Q 
 from .models import SubRubric, Bb
 from .forms import SearchForm 
+from django.shortcuts import redirect 
+from .forms import BbForm
+from .forms import AIFormSet
+from .models import Comment 
+from .forms import UserCommentForm 
+from .forms import GuestCommentForm
+
 
 #реализация контроллера главной страницы с помощью функции
 def index(request):
@@ -53,7 +60,10 @@ class AstroLoginView(LoginView):
 #контролер профиля пользователя
 @login_required#декоратор функции, подтверждающий, что пользователь вошел
 def profile(request):
-    return render(request, 'main/profile.html')
+    bbs = Bb.objects.filter(author=request.user.pk)
+    context = {'bbs': bbs}
+    return render(request, 'main/profile.html', context)
+
 
 #раелизация контроллера выхода через класс LogoutView
 class AstroLogoutView(LoginRequiredMixin, LogoutView):
@@ -159,10 +169,100 @@ def by_rubric(request, pk):
 
 #функция детального рассмотрения новости и комментариев
 def detail(request, rubric_pk, pk):
+    #bb = get_object_or_404(Bb, pk=pk)
+    bb = Bb.objects.get(pk=pk)
+    ais = bb.additionalimage_set.all()
+    comments = Comment.objects.filter(bb=pk, is_active=True)
+    initial = {'bb': bb.pk}
+    if request.user.is_authenticated:
+        initial['author'] = request.user.username
+        form_class = UserCommentForm
+    else:
+        form_class = GuestCommentForm
+    form = form_class(initial=initial)
+    if request.method == 'POST':
+        c_form = form_class(request.POST)
+        if c_form.is_valid():
+            c_form.save()
+            messages.add_message(request, messages.SUCCESS, 'Комментарий успешно добавлен')
+        else:
+            form = c_form
+            messages.add_message(request, messages.WARNING, 'Комментарий не добавлен')
+    context = {'bb': bb, 'ais': ais, 'comments': comments, 'form': form}
+    return render(request, 'main/detail.html', context)
+    #context = {'bb': bb, 'ais': ais}
+    #return render(request, 'main/profile_detail.html', context)
+
+#контроллер для просмотра сведений о новостях добавленных одним пользователем
+@login_required
+def profile_bb_detail(request, rubric_pk, pk):
     bb = get_object_or_404(Bb, pk=pk)
     ais = bb.additionalimage_set.all()
     context = {'bb': bb, 'ais': ais}
     return render(request, 'main/detail.html', context)
+
+
+#контроллер добавления новостей 
+@login_required
+def profile_bb_add(request):
+    if request.method == 'POST':
+        form = BbForm(request.POST, request.FILES)
+        if form.is_valid():
+            bb = form.save()
+            formset = AIFormSet(request.POST, request.FILES, instance=bb)
+            if formset.is_valid():
+                formset.save()
+                messages.add_message(request, messages.SUCCESS, 'Новость успешно добавлена') 
+                return redirect('main:profile')
+    else:
+        form = BbForm(initial={'author': request.user.pk})
+        formset = AIFormSet()
+    context = {'form': form, 'formset': formset}
+    return render(request, 'main/profile_bb_add.html', context)
+'''
+при создании формы перед выводом страницы 
+охранения мы заносим в поле author формы ключ текущего
+пользователя, который станет автором объявления.
+во время сохранения введенного объявления, при создании объектов
+формы и набора форм, мы должны передать конструкторам их классов вторым по­
+зиционным параметром словарь со всеми полученными файлами (он хранится
+в атрибуте FILES объекта запроса). Если мы не сделаем этого, то отправленные
+пользователем иллюстрации окажутся потерянными
+при сохранении мы сначала выполняем валидацию и сохранение формы
+самого объявления. Метод s ave ( ) в качестве результата возвращает сохраненную
+запись, и эту запись мы должны передать через параметр instance конструктору
+класса набора форм. Это нужно для того, чтобы все дополнительные иллюстрации
+после сохранения оказались связанными с объявлением.
+'''
+#контроллер удаления и редактирования новости
+@login_required
+def profile_bb_change(request, pk):
+    bb = get_object_or_404(Bb, pk=pk)
+    if request.method == 'POST':
+        form = BbForm(request.POST, request.FILES, instance=bb)
+        if form.is_valid():
+            bb = form.save()
+            formset = AIFormSet(request.POST, request.FILES, instance=bb)
+            if formset.is_valid():
+                formset.save()
+                messages.add_message(request, messages.SUCCESS, 'Новость отредактирована')
+                return redirect('main:profile')
+    else:
+        form = BbForm(instance=bb)
+        formset = AIFormSet(instance=bb)
+    context = {'form': form, 'formset': formset}
+    return render(request, 'main/profile_bb_change.html', context)
+
+@login_required
+def profile_bb_delete(request, pk):
+    bb = get_object_or_404(Bb, pk=pk)
+    if request.method == 'POST':
+        bb.delete()
+        messages.add_message(request, messages.SUCCESS, 'Новость удалена')
+        return redirect('main:profile')
+    else:
+        context = {'bb': bb}
+        return render(request, 'main/profile_bb_delete.html', context)
 
 
 

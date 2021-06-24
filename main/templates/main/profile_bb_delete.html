@@ -1,0 +1,17 @@
+{% extends 'base/base.html' %}
+{% load thumbnail %}
+{% load bootstrap4 %}
+{% load static %}
+
+{% block title %}
+    Удаление новостной записи - Профиль пользователя
+{% endblock title %}
+
+{% block content %}
+    <h3>Удаление новости</h3>
+    <form action="" method="POST" enctype="multipart/form-data">
+    {% csrf_token %} 
+    {% buttons submit='Удалить' %} {% endbuttons %} 
+</form>
+{% endblock content %}
+    

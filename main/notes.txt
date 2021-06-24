@@ -1,2 +1,0 @@
-asstr == bbs
-bb = astrImg

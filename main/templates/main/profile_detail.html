@@ -42,28 +42,6 @@
     <p>
         <a href="{% url 'main:by_rubric' pk=bb.rubric.pk %} {{ all }}">Назад</a>
     </p>
-    <h4 class="mt-5">Новый комментарий к новости</h4>
-    <form action="" method="POST">
-        {% csrf_token %} 
-        {% bootstrap_form form layout='horizontal' %} 
-        {% buttons submit='Добавить комментарий' %} {% endbuttons %} 
-    </form>
-    {% if comments %} 
-        <div class="mt-5">
-            {% for comment in comments %} 
-            <div class="my-5 p-2 border">
-                <h5>{{ comment.author }}</h5>
-                <p>
-                    <h4>{{ comment.content }}</h4>
-                </p>
-                <p class="text-right forn-italic">
-                    {{ comment.created_at }} 
-                </p>
-
-            </div>
-            {% endfor %} 
-        </div>
-    {% endif %} 
 {% endblock content %}
     
     

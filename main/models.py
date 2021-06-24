@@ -1,6 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from .utilities import get_time_stamp_path 
+from django.db.models.signals import post_save 
+from .utilities import send_new_comment_notification
+
 
 class AstroUser(AbstractUser):
     #прошел ли активацию
@@ -109,3 +112,26 @@ class AdditionalImage(models.Model):
     class Meta:
         verbose_name_plural = 'Дополнительные изображения'
         verbose_name = 'Дополнительное изображение'
+
+
+#модель сомментариев к новостям
+class Comment(models.Model):
+    bb = models.ForeignKey(Bb, on_delete=models.CASCADE, verbose_name='Новость')
+    author = models.CharField(max_length=30, verbose_name='Автор')
+    content = models.TextField(verbose_name='Содержание комментария')
+    is_active = models.BooleanField(default=True, db_index=True, verbose_name='Вывести на экран?')
+    created_at = models.DateTimeField(auto_now_add=True, db_index=True, verbose_name='Опублекован')
+
+    class Meta:
+        verbose_name_plural = 'Комментарии пользователей'
+        verbose_name = 'Комментарии'
+        ordering = ['created_at'] 
+
+'''
+#функция отправки уведомлений о новых коммент ариях
+def post_save_dispatcher(sender, **kwargs):
+    author = kwargs['instance'].bb.author 
+    if kwargs['created'] and author.send_messages:
+        send_new_comment_notification(kwargs['instance'])
+post_save.connect(post_save_dispatcher, sender=Comment)
+'''

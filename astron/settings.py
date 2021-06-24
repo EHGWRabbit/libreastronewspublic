@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     #local
     'main.apps.MainConfig',
+    'api.apps.ApiConfig',
     #downloaded
     #css framework
     'bootstrap4',
@@ -47,12 +48,18 @@ INSTALLED_APPS = [
     'django_cleanup',
     #supports grafics and miniatures
     'easy_thumbnails',
+    #captcha
+    'captcha',
+    #rest_framework
+    'rest_framework',
+    'corsheaders',
     
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    #'corsheaders.middleware.CoreMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -163,5 +170,9 @@ THUMBNAIL_ALIASES = {
 
 
 THUMBNAIL_BASEDIR = 'thumbnails'
+
+#permissions for all host support
+CORS_ORIGIN_ALLOW_ALL = True 
+CORS_URLS_REGEX = r'^/api/.*$'
 
 
