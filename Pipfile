@@ -11,6 +11,7 @@ django-cleanup = "*"
 django-simple-captcha = "*"
 djangorestframework = "*"
 django-cors-headers = "*"
+gunicorn = "*"
 
 [dev-packages]
 

@@ -1,0 +1,1 @@
+web: gunicorn astron.wsgi --log-file -
