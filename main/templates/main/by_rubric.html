@@ -21,7 +21,7 @@
     {% if bbs %} 
         <ul class="list-unstyled">
             {% for bb in bbs %} 
-            <li class="media my-5 p-3 border">
+            <li class="dropdown-item">
                 {% url 'main:detail' rubric_pk=rubric.pk pk=bb.pk as url %} 
                 <a href="{{ url }} {{ all }}">
                     {% if bb.image %} 
@@ -39,10 +39,11 @@
                     <p class="text-right forn-weight-bold">Источник {{ bb.source }}</p>
                     <p class="text-right font-italic">{{ bb.created_at }}</p>
                 </div>
+        
             </li>
             {% endfor %}
         </ul> 
-    {% endif %}  
+    {% endif %} 
 {% endblock content %}
     
     

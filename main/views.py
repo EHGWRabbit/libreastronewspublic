@@ -46,7 +46,7 @@ def index(request):
 #генератор адресов
 def other_page(request, page):
     try:
-        template = get_template('main/' + page + 'html')
+        template = get_template('main/' + page + '.html')
         #поднятие исключения
     except TemplateDoesNotExist:
         #перехват исключения и вывод http404

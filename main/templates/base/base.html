@@ -23,7 +23,7 @@
         <h2 class="display-5 text-center">Новости Астрономии</h2>
     </header>
     <div class="row">
-        <ul class="col navbar-nav border">
+        <ul class="col navbar-nav>
             <lariai class="nav-item">
                 <a href="{% url 'main:register' %}" class="nav-link">Регистрация</a>
             </li>
@@ -53,7 +53,7 @@
         </ul>
     </div>
     <div class="row">
-        <nav class="col-md-auto nav flex-column border">
+        <nav class="col-md-auto nav flex-column">
             <a href="{% url 'main:index' %}" class="nav-link root">Главная</a>
             {% for rubric in rubrics %} 
                 {% ifchanged rubric.super_rubric.pk %} 
