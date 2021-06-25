@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-@iq=be+$llb-xp-xs#e4u6olr6ypj036y)b=rm#+nbd8176w@o
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['www.libreastronews.herokuapp.com']
 
 
 # Application definition
