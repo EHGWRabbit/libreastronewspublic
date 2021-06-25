@@ -326,12 +326,9 @@ body{
     color: gold;
 }
 header{
-        background: url("astr.jpg") left / auto 350% no-repeat, url("astr.jpg") right / auto 350% no-repeat;
+        background: url("astr.png") left / auto 150% no-repeat;
 }
 
-header>h2{
-    font-size: 34px;
-}
 .root{
     font-size: larger;
 }
@@ -356,4 +353,7 @@ ul>li>a{
 }
 header{
     height:92px;
+}
+div.media-body{
+    text-align: left;
 }

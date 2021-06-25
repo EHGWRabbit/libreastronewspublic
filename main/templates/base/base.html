@@ -12,7 +12,7 @@
     {% block title %}
         Главная страница
     {% endblock title %}
-    Новости астрономии
+    Блог хакера
         </title> 
         {% bootstrap_css %}   
     <link rel="stylesheet" href="{% static 'main/style.css' %}">
@@ -20,7 +20,7 @@
 </head>
 <body class="container-fluid">
     <header class="mb-4">
-        <h2 class="text-center">Астрономический блог</h2>
+        <h2 class="text-right">Убежище Хакера</h2>
     </header>
     <div class="row">
         <ul class="nav nav-tabs">
@@ -63,7 +63,7 @@
             {% for rubric in rubrics %}  
                 <a href="{% url 'main:by_rubric' pk=rubric.pk %}" class="nav-link">
                     {{ rubric.name }}
-                    <h6>----->подробнее-----></h6>
+                    <h6><----подробнее----></h6>
                 </a>
                 </li>
             {% endfor %} 
