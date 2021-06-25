@@ -8,7 +8,7 @@ from django.contrib.auth.views import LogoutView
 from django.contrib.auth.mixins import LoginRequiredMixin#примесь для зарегистрированных пользователей
 from django.views.generic.edit import UpdateView 
 from django.contrib.messages.views import SuccessMessageMixin
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.shortcuts import get_object_or_404
 from .models import AstroUser
 from .forms import ChangeUserInfoForm
@@ -21,10 +21,10 @@ from .utilities import signer
 from django.views.generic.edit import DeleteView 
 from django.contrib.auth import logout 
 from django.contrib import messages 
-#from django.contrib.auth.views import PasswordResetView
-#from django.contrib.auth.views import PasswordResetDoneView
-#from django.contrib.auth.views import PasswordResetConfirmView
-#from django.contrib.auth.views import PasswordResetCompleteView
+from django.contrib.auth.views import PasswordResetView
+from django.contrib.auth.views import PasswordResetDoneView
+from django.contrib.auth.views import PasswordResetConfirmView
+from django.contrib.auth.views import PasswordResetCompleteView
 from django.core.paginator import Paginator 
 from django.db.models import Q 
 from .models import SubRubric, Bb
@@ -264,28 +264,27 @@ def profile_bb_delete(request, pk):
         context = {'bb': bb}
         return render(request, 'main/profile_bb_delete.html', context)
 
-
-
 '''
+
 #сброс пароля
 class ResetPasswordView(PasswordResetView):
-    model = AstroUser
     template_name = 'main/reset.html'
-    #success_url = reverse_lazy('main:login')
-    success_message = 'Cброс пароля'
-    #
+    success_url = reverse_lazy('main:password_reset_confirm')
+    title = 'Введите новый пароль'
+
 class ResetPasswordConfirmView(PasswordResetConfirmView):
-    model = AstroUser
-    template_name = 'main/reset_confirm.html'
-    #success_url = reverse_lazy('main:login')
+    template_name = 'main/password_reset_confirm.html'
+    success_url = reverse_lazy('main:complete')
 
 
 class ResetPasswordDoneView(PasswordResetDoneView):
-    model = AstroUser
-    template_name = 'main/reset_done.html'
-    #success_url = reverse_lazy('main: ')
-class ResetPasswordCompleteView(PasswordResetCompleteView):
-    model = AstroUser
-    template_name = 'main/reset_complete.html'
-    '''
+    template_name = 'main/password_reset_done.html'
+    success_url = reverse_lazy('main:confirm')
+    title = ('Сброс')
 
+class ResetPasswordCompleteView(PasswordResetCompleteView):
+    template_name = 'main/password_reset_complete.html'
+    title = 'Сброс завершен'
+    
+
+'''

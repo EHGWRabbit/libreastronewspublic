@@ -9,12 +9,9 @@
     <h2>Сброс пароля пользователя {{ user.username }}</h2>
     <p>Пожалуйста введите свой адрес электронной почты</p>
     <p>Мы отправим вам писмьмо с сылкой для повторной активации</p>
-    <form action="" method="POST">
-        {% csrf_token %} 
-        {% if form.email.errors %} 
-            {{ form.email.errors }}
-        {% endif %}
-        {% bootstrap_form form layout='horizontal' %} 
-        {% buttons submit='Сбросить пароль' %} {% endbuttons %}
-    </form>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input class="btn btn-success" type="submit" value="Отправить инструкцию!">
+        </form>
 {% endblock content %}
