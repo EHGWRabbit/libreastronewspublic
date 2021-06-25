@@ -25,12 +25,6 @@
             <li class="media my-5 p-3 border">
                 {% url 'main:detail' rubric_pk=rubric.pk pk=bb.pk as url %} 
                 <a href="{{ url }} {{ all }}">
-                    {% if bb.image %} 
-                        <img src="{% thumbnail bb.image 'default' %}" alt="b" class="mr-3">
-                            
-                    {% else %} 
-                        <img src="{% static 'main/empty.jpg' %}" alt="a" class="mr-3">
-                    {% endif %} 
                 </a>
                 <div class="media-body">
                     <h3><a href="{{ url }} {{ all }}">
