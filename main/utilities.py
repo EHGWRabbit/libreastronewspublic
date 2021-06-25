@@ -12,7 +12,7 @@ signer = Signer()
 #пишем функцию отправки сообщений на почту
 def send_activation_note(user):
     if ALLOWED_HOSTS:
-        host = 'http://' + ALLOWED_HOSTS[0]
+        host = 'https://' + ALLOWED_HOSTS[0]
     else:
         host = 'http://localhost:8000'
     context = {'user': user, 'host': host, 'sign': signer.sign(user.username)}
