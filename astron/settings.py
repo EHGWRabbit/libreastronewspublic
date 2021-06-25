@@ -157,7 +157,7 @@ AUTH_USER_MODEL = 'main.AstroUser'
 
 
 #mail modul
-EMAIL_PORT = 1025
+#EMAIL_PORT = 1025
 
 #outload files
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -185,13 +185,13 @@ CORS_URLS_REGEX = r'^/api/.*$'
 
 
 #email
-'''
+
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'libreastronews@gmail.com' 
 EMAIL_HOST_PASSWORD = 'x326y457z628a45b'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True 
 
-'''
+
 
 
