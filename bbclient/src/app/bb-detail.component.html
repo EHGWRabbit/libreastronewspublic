@@ -1,0 +1,22 @@
+<ng-container *ngIf='bb'>
+<div class="image"><img src="{{ bb.image }}" alt=""></div>
+<div class="others">
+    <h2>{{ bb.title ]}</h2>
+    <p>{{ bb.content ]}</p>
+    <p class="source">{{ bb.source }}</p>
+    <p>{{ contacts }}</p>
+    <p class="date">{{ bb.created_at|date:'medium' }}</p>
+</div>
+</ng-container>
+<h2>Новый комментарий</h2>
+<form (ngSubmit)='submitComment()'>
+    <p>Имя: <input [(ngModel)]='author' name='aythor' required></p>
+    <p>Пароль: <input type='password' [(ngModel)]='password' name='password' required></p>
+    <p>Содержание: <br><textarea [(ngModel)]='content' name='content' required></textarea></p>
+    <p><input type='submit' value='Добавить комментарий'></p>
+</form>
+<div class="comment" *ngFor='let comment of comments'>
+    <h4>{{ comment.author }}</h4>
+    <p>{{ comment.content }}</p>
+    <p class="date">{{ comment.created_at|date:'medium' }}</p>
+</div>
